@@ -1,0 +1,382 @@
+@import "tailwindcss";
+
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --bg-void: #000000;
+  --bg-ink: #181818;
+  --bg-panel: #1f1f1f;
+  --bg-raised: #272727;
+  --bg-mute: #313131;
+}
+
+@theme inline {
+  --font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+  --color-void: #000000;
+  --color-ink: #181818;
+  --color-panel: #1f1f1f;
+  --color-raised: #272727;
+  --color-mute: #313131;
+}
+
+html {
+  background: var(--bg-void);
+  color: #ffffff;
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+html.scroll-locked {
+  overscroll-behavior: none;
+}
+
+body {
+  background: var(--bg-void);
+  color: #f5f5f5;
+  font-family: var(--font-instrument-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: #5b2a7a;
+  color: #ffffff;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  transform: translateY(-200%);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000000;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.pressable {
+  transition: transform 100ms var(--ease-out);
+}
+
+.pressable:active {
+  transform: scale(0.97);
+}
+
+.stat-bar {
+  transform: scaleY(0.12);
+  transform-origin: bottom;
+  will-change: transform;
+}
+
+@keyframes bar-live-a {
+  0% {
+    transform: scaleY(0.12);
+  }
+  11% {
+    transform: scaleY(1.48);
+  }
+  24% {
+    transform: scaleY(0.24);
+  }
+  38% {
+    transform: scaleY(1.38);
+  }
+  54% {
+    transform: scaleY(0.32);
+  }
+  70% {
+    transform: scaleY(1.22);
+  }
+  84% {
+    transform: scaleY(0.44);
+  }
+  100% {
+    transform: scaleY(var(--bar));
+  }
+}
+
+@keyframes bar-live-b {
+  0% {
+    transform: scaleY(0.16);
+  }
+  14% {
+    transform: scaleY(1.32);
+  }
+  28% {
+    transform: scaleY(0.38);
+  }
+  42% {
+    transform: scaleY(1.56);
+  }
+  58% {
+    transform: scaleY(0.26);
+  }
+  72% {
+    transform: scaleY(1.42);
+  }
+  86% {
+    transform: scaleY(0.5);
+  }
+  100% {
+    transform: scaleY(var(--bar));
+  }
+}
+
+@keyframes bar-live-c {
+  0% {
+    transform: scaleY(0.1);
+  }
+  16% {
+    transform: scaleY(1.62);
+  }
+  30% {
+    transform: scaleY(0.18);
+  }
+  46% {
+    transform: scaleY(1.44);
+  }
+  62% {
+    transform: scaleY(0.46);
+  }
+  76% {
+    transform: scaleY(1.34);
+  }
+  88% {
+    transform: scaleY(0.36);
+  }
+  100% {
+    transform: scaleY(var(--bar));
+  }
+}
+
+.stat-bar.is-live-a {
+  animation-name: bar-live-a;
+}
+
+.stat-bar.is-live-b {
+  animation-name: bar-live-b;
+}
+
+.stat-bar.is-live-c {
+  animation-name: bar-live-c;
+}
+
+.stat-bar.is-live-a,
+.stat-bar.is-live-b,
+.stat-bar.is-live-c {
+  animation-timing-function: var(--ease-out);
+  animation-fill-mode: forwards;
+}
+
+.stats-video {
+  transform: translateZ(0);
+}
+
+.trophy-belt {
+  width: 100%;
+}
+
+.trophy-belt__stripe {
+  height: 10px;
+}
+
+.trophy-belt__stripe--blue {
+  background: linear-gradient(
+    90deg,
+    #001a4d 0%,
+    #003580 42%,
+    #0047a8 50%,
+    #003580 58%,
+    #001a4d 100%
+  );
+}
+
+.trophy-belt__stripe--red {
+  background: linear-gradient(
+    90deg,
+    #7a0c14 0%,
+    #aa151b 42%,
+    #d41f28 50%,
+    #aa151b 58%,
+    #7a0c14 100%
+  );
+}
+
+.trophy-belt__body {
+  background: #061428;
+  overflow: hidden;
+}
+
+.trophy-belt__track {
+  display: flex;
+  align-items: center;
+  height: 188px;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    #000 7%,
+    #000 93%,
+    transparent 100%
+  );
+}
+
+.trophy-belt__marquee {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  height: 100%;
+  align-items: center;
+  animation: trophy-marquee 38s linear infinite;
+  will-change: transform;
+}
+
+.trophy-belt__group {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 100%;
+  gap: 72px;
+  padding-inline: 36px;
+  list-style: none;
+  margin: 0;
+}
+
+.trophy-belt__item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 140px;
+}
+
+.trophy-belt__item--world-cup {
+  width: 188px;
+  height: 168px;
+}
+
+.trophy-belt__image {
+  display: block;
+  width: auto !important;
+  height: auto !important;
+  max-width: 160px;
+  max-height: 140px;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+  user-select: none;
+}
+
+.trophy-belt__image--world-cup {
+  max-width: 188px;
+  max-height: 168px;
+}
+
+@keyframes trophy-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.hero-title {
+  background-image: linear-gradient(90deg, #ffffff 0%, #9b9b9b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.hero-zoom {
+  transform-origin: 30% 40%;
+  will-change: transform;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  46% {
+    transform: translateY(38%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hero-rise {
+  display: block;
+  animation: slide-up 2.8s var(--ease-out) both;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover {
+    color: #ffffff;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-parallax {
+    transform: none !important;
+  }
+
+  .trophy-belt__marquee {
+    animation-duration: 72s;
+  }
+
+  .reveal-motion {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .pressable:active {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: #181818;
+    backdrop-filter: none;
+  }
+}
